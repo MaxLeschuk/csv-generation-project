@@ -1,0 +1,3 @@
+# Project exclude paths
+/csv-generator/target/
+/user-service/target/

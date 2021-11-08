@@ -1,0 +1,17 @@
+type Query {
+   getAllTemplates:[CsvTemplate]
+}
+
+type CsvTemplate{
+    id:String
+    columns:[String]
+}
+type Mutation{
+    create(input: Int): [CsvFile]
+}
+
+type CsvFile{
+    id:Int
+    path:String
+    userId:Int
+}

@@ -1,0 +1,83 @@
+version: '2'
+services:
+  minio:
+    image: bitnami/minio:latest
+    container_name: minio
+    environment:
+      MINIO_ACCESS_KEY: "Q3AM3UQ867SPQQA43P2F"
+      MINIO_SECRET_KEY: "tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
+    volumes:
+      - ./data/minio-persistence:/data
+      - ./data/minio-persistence/certs:/certs
+    ports:
+      - 9000:9000
+      - 9001:9001
+
+  db:
+    image: docker.io/bitnami/postgresql:11
+    container_name: db
+    environment:
+      - POSTGRES_DATABASE=compose-postgres
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+    ports:
+      - 5432:5432
+
+
+  postgresql:
+    image: 'docker.io/bitnami/postgresql:11'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_USERNAME=bn_keycloak
+      - POSTGRESQL_DATABASE=bitnami_keycloak
+  keycloak:
+    image: docker.io/bitnami/keycloak:15
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    depends_on:
+      - postgresql
+    ports:
+      - "8180:8080"
+
+
+  keycloak1:
+    image: jboss/keycloak:9.0.0
+    ports:
+      - "8080:8080"
+    command: -Dkeycloak.profile.feature.upload_scripts=enabled
+    environment:
+      DB_VENDOR: h2
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+  amq:
+    container_name: amq
+    image: webcenter/activemq:5.14.3
+    volumes:
+      - "activemq-data:/opt/activemq/conf"
+      - "activemq-data:/data/activemq"
+      - "activemq-data:/var/log/activemq"
+    environment:
+      ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT: "true"
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: password
+      ACTIVEMQ_WRITE_LOGIN: write
+      ACTIVEMQ_WRITE_PASSWORD: password
+      ACTIVEMQ_READ_LOGIN: read
+      ACTIVEMQ_READ_PASSWORD: password
+      ACTIVEMQ_JMX_LOGIN: jmx
+      ACTIVEMQ_JMX_PASSWORD: password
+      ACTIVEMQ_STATIC_TOPICS: static-topic-1;static-topic-2
+      ACTIVEMQ_STATIC_QUEUES: static-queue-1;static-queue-2
+      ACTIVEMQ_ENABLED_SCHEDULER: "true"
+      ACTIVEMQ_MIN_MEMORY: 512
+      ACTIVEMQ_MAX_MEMORY: 2048
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+
+
+volumes:
+  activemq-data: { }
