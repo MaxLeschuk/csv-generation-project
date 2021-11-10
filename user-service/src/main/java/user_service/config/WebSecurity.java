@@ -55,7 +55,8 @@ public class WebSecurity extends KeycloakWebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.authorizeRequests()
-                .anyRequest().permitAll().and().csrf().disable();
+                .antMatchers("/management/graphql").authenticated()
+                .and().csrf().disable();
 
     }
 }

@@ -10,16 +10,23 @@ public interface CsvManagementService {
     /**
      * Creates new CsvFile using template by id
      *
-     * @param id {@link user_service.entities.CsvTemplate} id
+     * @param userId userId
+     * @param id     {@link user_service.entities.CsvTemplate} id
      */
-    void create(Integer id);
+    void create(String userId, Integer id);
+
 
     /**
-     * Returns all CsvFiles
+     * Generates new CsvFile using userId and template
+     */
+    void generateCsv(String userId, String[] template);
+
+    /**
+     * Returns all user CsvFiles by his id
      *
      * @return
      */
-    List<CsvFile> findAll();
+    List<CsvFile> findAll(String userId);
 
     /**
      * Save CsvFile data

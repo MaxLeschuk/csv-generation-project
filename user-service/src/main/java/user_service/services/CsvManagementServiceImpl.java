@@ -1,11 +1,14 @@
 package user_service.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import user_service.brokers.MessageBroker;
+import user_service.dao.CsvFileMapper;
 import user_service.dao.CsvTemplatesMapper;
 import user_service.entities.CsvFile;
+import user_service.entities.CsvTemplate;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -13,23 +16,39 @@ import java.util.List;
 public class CsvManagementServiceImpl implements CsvManagementService {
 
     @Autowired
-    private MessageBroker messageBroker;
-
-    @Autowired
     private CsvTemplatesMapper csvTemplatesMapper;
 
-    @Override
-    public void create(Integer id) {
-        messageBroker.sendMessage(new String[]{"col1","col2","col3",},"csv_generate");
+    @Autowired
+    private CsvFileMapper csvFileMapper;
+
+    @Autowired
+    private JobService jobService;
+
+    @Autowired
+    private GenerateCsvConnector generateCsvConnector;
+
+    public void generateCsv(String userId, String[] template) {
+        String path = generateCsvConnector.sendToGenerate(template);
+        csvFileMapper.create(userId, path);
     }
 
     @Override
-    public List<CsvFile> findAll() {
-        return null;
+    public void create(String userId, Integer id) {
+        CsvTemplate pattern = csvTemplatesMapper.findById(id);
+        if (pattern == null)
+            throw new NullPointerException();
+        jobService.createGenerateCsvJob(userId, pattern);
+    }
+
+    @Override
+    public List<CsvFile> findAll(String userId) {
+
+        return csvFileMapper.findAllUserFiles(userId);
     }
 
     @Override
     public void saveFileData(String path) {
 
     }
+
 }

@@ -1,5 +1,6 @@
 type Query {
    getAllTemplates:[CsvTemplate]
+   getAllCsvFiles:[CsvFile]
 }
 
 type CsvTemplate{
@@ -7,11 +8,11 @@ type CsvTemplate{
     columns:[String]
 }
 type Mutation{
-    create(input: Int): [CsvFile]
+    createCsvFile(input: Int): [CsvFile]
 }
 
 type CsvFile{
     id:Int
     path:String
-    userId:Int
+    userId:String
 }

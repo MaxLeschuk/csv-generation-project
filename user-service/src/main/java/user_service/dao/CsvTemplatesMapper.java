@@ -31,7 +31,14 @@ public interface CsvTemplatesMapper {
     /**
      * Returns CsvTemplate by id
      */
-    @Select("select * from t_csv_template where id=#{id}")
+    @Select("select * from t_csv_templates where id=#{id}")
+    @Results(value = {
+            @Result(property = "columns",
+                    javaType = String[].class,
+                    jdbcType = JdbcType.VARCHAR,
+                    typeHandler = StringToStringArrayHandler.class,
+                    column = "template")
+    })
     CsvTemplate findById(Integer id);
 
 
