@@ -20,18 +20,15 @@ function configureKeycloak(app, graphqlPath) {
     store: memoryStore
   }, keycloakConfig)
 
-
   // Install general keycloak middleware
   app.use(keycloak.middleware({
     admin: graphqlPath,
     logout: '/logout',
   }))
-/*
+
   app.use(function (req, res, next){
     return next();
   })
-
-  */
   // Protect the main route for all graphql services
   // Disable unauthenticated access
   app.use(graphqlPath, keycloak.middleware())

@@ -15,12 +15,12 @@ public interface CsvFileMapper {
     /**
      * Creates new {@link CsvFile}
      */
-    @Insert("insert into t_csv_files(user,csvPath) values(#{userId},#{csvPath})")
-    void create(String userId, String csvPath);
+    @Insert("insert into t_csv_files(userId,path) values(#{userId},#{path})")
+    void create(String userId, String path);
 
     /**
      * Returns all user files by his id
      */
-    @Select("select * from t_csv_files where user=#{userId}")
+    @Select("select * from t_csv_files where userId=#{userId}")
     List<CsvFile> findAllUserFiles(String userId);
 }

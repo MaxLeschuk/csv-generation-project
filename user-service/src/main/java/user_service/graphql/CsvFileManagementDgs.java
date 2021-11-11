@@ -21,7 +21,7 @@ public class CsvFileManagementDgs {
     private CsvManagementService csvManagementService;
 
     @DgsMutation
-    public List<CsvFile> createCsvFile(@InputArgument(name = "id") Integer id) {
+    public List<CsvFile> createCsvFile(@InputArgument(name = "input") Integer id) {
         try {
             csvManagementService.create(getPrincipal().getName(), id);
             return csvManagementService.findAll(getPrincipal().getName());

@@ -20,10 +20,7 @@ public class CsvGeneratorImpl implements CsvGenerator {
 
     @Override
     public String generate(String[] columns) {
-        for(String s:columns){
-            System.out.println(s);
-        }
-   /*     String path = generateTempFile();
+        String path = generateTempFile();
         try (CSVWriter writer = new CSVWriter(new FileWriter(path))) {
             for (int i = 0; i < size; i++) {
                 writer.writeNext(generateField(i, columns));
@@ -32,9 +29,6 @@ public class CsvGeneratorImpl implements CsvGenerator {
         } catch (IOException e) {
             logger.info(e.getLocalizedMessage());
         }
-
-
-    */
         return null;
     }
 

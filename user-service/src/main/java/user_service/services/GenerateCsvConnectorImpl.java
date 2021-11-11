@@ -2,6 +2,7 @@ package user_service.services;
 
 import org.jobrunr.jobs.annotations.Job;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
