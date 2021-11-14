@@ -17,7 +17,6 @@
     <modules>
         <module>csv-generator</module>
         <module>user-service</module>
-        <module>csv-project-job-runner</module>
     </modules>
 
     <properties>

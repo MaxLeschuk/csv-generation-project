@@ -4,7 +4,7 @@ public interface CsvService {
 
 
     /**
-     * Creates new file.
+     * Creates new CsvFile.
      *
      * @param columns pattern
      * @return path

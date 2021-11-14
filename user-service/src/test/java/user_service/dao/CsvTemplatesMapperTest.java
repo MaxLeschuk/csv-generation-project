@@ -17,8 +17,12 @@ class CsvTemplatesMapperTest {
     private CsvTemplatesMapper csvTemplatesMapper;
 
     @Test
-    void findALl() {
+    void test_findAll_and_findById() {
         List<CsvTemplate> csvTemplateList = csvTemplatesMapper.findAll();
         assertEquals(4, csvTemplateList.size());
+        CsvTemplate mustBeFound = csvTemplateList.get(0);
+        CsvTemplate csvTemplate = csvTemplatesMapper.findById(mustBeFound.getId());
+        assertEquals(csvTemplate.getId(), mustBeFound.getId());
+        assertEquals(csvTemplate.getColumns().length, mustBeFound.getColumns().length);
     }
 }

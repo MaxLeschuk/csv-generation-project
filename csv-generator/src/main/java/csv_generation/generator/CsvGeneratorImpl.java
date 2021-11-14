@@ -15,8 +15,11 @@ public class CsvGeneratorImpl implements CsvGenerator {
     private Logger logger = Logger.getLogger(CsvGeneratorImpl.class.getName());
 
 
-    @Value("${lines.size}")
+    @Value("${generate.row.count}")
     private Integer size;
+
+    @Value("${generate.path}")
+    private String path;
 
     @Override
     public String generate(String[] columns) {
@@ -41,7 +44,6 @@ public class CsvGeneratorImpl implements CsvGenerator {
     }
 
     private String generateTempFile() {
-        String path = "C:\\Users\\Maksim_Liashchuk\\Desktop\\" + UUID.randomUUID();
-        return path;
+        return path + UUID.randomUUID();
     }
 }

@@ -87,9 +87,18 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter-test</artifactId>
             <version>2.2.0</version>
-            <scope>test</scope>
         </dependency>
-    </dependencies>
+       <dependency>
+           <groupId>org.apache.ibatis</groupId>
+           <artifactId>ibatis-core</artifactId>
+           <version>3.0</version>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework.security</groupId>
+           <artifactId>spring-security-test</artifactId>
+           <version>5.1.2.RELEASE</version>
+       </dependency>
+   </dependencies>
     <build>
         <plugins>
             <plugin>

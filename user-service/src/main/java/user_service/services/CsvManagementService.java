@@ -28,10 +28,4 @@ public interface CsvManagementService {
      */
     List<CsvFile> findAll(String userId);
 
-    /**
-     * Save CsvFile data
-     *
-     * @param path of file
-     */
-    void saveFileData(String path);
 }

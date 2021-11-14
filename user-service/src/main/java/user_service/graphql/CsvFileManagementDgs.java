@@ -23,8 +23,8 @@ public class CsvFileManagementDgs {
     @DgsMutation
     public List<CsvFile> createCsvFile(@InputArgument(name = "input") Integer id) {
         try {
-            csvManagementService.create(getPrincipal().getName(), id);
-            return csvManagementService.findAll(getPrincipal().getName());
+            csvManagementService.create(getPrincipalName(), id);
+            return csvManagementService.findAll(getPrincipalName());
         } catch (NullPointerException e) {
             throw new DgsEntityNotFoundException();
         }
@@ -33,10 +33,10 @@ public class CsvFileManagementDgs {
 
     @DgsQuery
     public List<CsvFile> getAllCsvFiles() {
-        return csvManagementService.findAll(getPrincipal().getName());
+        return csvManagementService.findAll(getPrincipalName());
     }
 
-    private Principal getPrincipal() {
-        return (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private String getPrincipalName() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

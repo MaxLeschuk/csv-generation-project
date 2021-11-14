@@ -5,6 +5,14 @@ public class CsvFile {
     private String path;
     private String userId;
 
+    public CsvFile(String userId, String path) {
+        this.path = path;
+        this.userId = userId;
+    }
+
+    public CsvFile() {
+    }
+
     public Integer getId() {
         return id;
     }

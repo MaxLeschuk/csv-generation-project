@@ -16,7 +16,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="csv-generation-project" options="-parameters" />
+      <module name="csv-generation-project" options="" />
       <module name="csv-generator" options="-parameters" />
       <module name="csv-project-job-runner" options="-parameters" />
       <module name="user-service" options="-parameters" />
