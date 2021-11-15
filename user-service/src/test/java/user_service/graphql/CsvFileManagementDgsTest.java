@@ -2,6 +2,7 @@ package user_service.graphql;
 
 import com.netflix.graphql.dgs.DgsQueryExecutor;
 import com.netflix.graphql.dgs.autoconfig.DgsAutoConfiguration;
+import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 @SpringBootTest(classes = {DgsAutoConfiguration.class, CsvFileManagementDgs.class})
@@ -53,11 +54,19 @@ class CsvFileManagementDgsTest {
 
     @Test
     @WithMockUser(username = "user1", roles = {"USER"})
+    void test_throwing_exceptions() {
+        doThrow(NullPointerException.class).when(csvManagementService).create("user1", 1);
+        assertThrows(DgsEntityNotFoundException.class, () -> csvFileManagementDgs.createCsvFile(1));
+
+    }
+
+    @Test
+    @WithMockUser(username = "user1", roles = {"USER"})
     void test_create_csvFile() {
         given(csvManagementService.findAll("user1")).willReturn(csvFileList);
         List<CsvFile> csvFilesList = csvFileManagementDgs.createCsvFile(1);
         assertEquals(3, csvFilesList.size());
-        verify(csvManagementService,times(1)).create("user1",1);
+        verify(csvManagementService, times(1)).create("user1", 1);
 
     }
 }

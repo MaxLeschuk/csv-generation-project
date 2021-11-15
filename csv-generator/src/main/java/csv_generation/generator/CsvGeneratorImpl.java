@@ -1,6 +1,7 @@
 package csv_generation.generator;
 
 import com.opencsv.CSVWriter;
+import csv_generation.exceptions.TechnicalException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,16 +24,15 @@ public class CsvGeneratorImpl implements CsvGenerator {
 
     @Override
     public String generate(String[] columns) {
-        String path = generateTempFile();
-        try (CSVWriter writer = new CSVWriter(new FileWriter(path))) {
+        String filePath = generateTempFile();
+        try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
             for (int i = 0; i < size; i++) {
                 writer.writeNext(generateField(i, columns));
             }
-            return path;
+            return filePath;
         } catch (IOException e) {
-            logger.info(e.getLocalizedMessage());
+            throw new TechnicalException(e.getLocalizedMessage());
         }
-        return null;
     }
 
     private String[] generateField(int num, String[] columns) {

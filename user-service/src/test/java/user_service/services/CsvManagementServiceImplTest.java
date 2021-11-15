@@ -15,6 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -72,7 +73,7 @@ class CsvManagementServiceImplTest {
     @Test
     void test_create() {
         csvManagementService.create("user1", 1);
-        verify(jobService, times(1)).createGenerateCsvJob("user1", any(CsvTemplate.class));
+        verify(jobService, times(1)).createGenerateCsvJob(eq("user1"), any(CsvTemplate.class));
     }
 
     @Test
