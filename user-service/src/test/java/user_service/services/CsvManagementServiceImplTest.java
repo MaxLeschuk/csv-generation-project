@@ -1,5 +1,7 @@
 package user_service.services;
 
+import org.jobrunr.jobs.lambdas.JobLambda;
+import org.jobrunr.scheduling.JobScheduler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -32,7 +34,7 @@ class CsvManagementServiceImplTest {
     private CsvManagementServiceImpl csvManagementService;
 
     @Mock
-    private JobService jobService;
+    private JobScheduler jobScheduler;
 
     @Mock
     private GenerateCsvConnector generateCsvConnector;
@@ -40,7 +42,7 @@ class CsvManagementServiceImplTest {
     @BeforeEach
     void before() {
         csvManagementService = new CsvManagementServiceImpl(csvTemplatesMapper, csvFileMapper
-                , jobService, generateCsvConnector);
+                , jobScheduler, generateCsvConnector);
         csvFileMapper.create(new CsvFile("user1", "path"));
 
         csvFileMapper.create(new CsvFile("user2", "path"));
@@ -73,7 +75,7 @@ class CsvManagementServiceImplTest {
     @Test
     void test_create() {
         csvManagementService.create("user1", 1);
-        verify(jobService, times(1)).createGenerateCsvJob(eq("user1"), any(CsvTemplate.class));
+        verify(jobScheduler, times(1)).enqueue(any(JobLambda.class));
     }
 
     @Test

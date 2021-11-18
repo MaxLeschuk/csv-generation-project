@@ -1,5 +1,6 @@
 package user_service.services;
 
+import org.jobrunr.scheduling.JobScheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import user_service.dao.CsvFileMapper;
@@ -11,7 +12,7 @@ import java.util.List;
 
 
 @Component
-class CsvManagementServiceImpl implements CsvManagementService {
+public class CsvManagementServiceImpl implements CsvManagementService {
 
     @Autowired
     private CsvTemplatesMapper csvTemplatesMapper;
@@ -20,15 +21,15 @@ class CsvManagementServiceImpl implements CsvManagementService {
     private CsvFileMapper csvFileMapper;
 
     @Autowired
-    private JobService jobService;
+    private JobScheduler jobScheduler;
 
     @Autowired
     private GenerateCsvConnector generateCsvConnector;
 
-    public CsvManagementServiceImpl(CsvTemplatesMapper csvTemplatesMapper, CsvFileMapper csvFileMapper, JobService jobService, GenerateCsvConnector generateCsvConnector) {
+    public CsvManagementServiceImpl(CsvTemplatesMapper csvTemplatesMapper, CsvFileMapper csvFileMapper, JobScheduler jobScheduler, GenerateCsvConnector generateCsvConnector) {
         this.csvTemplatesMapper = csvTemplatesMapper;
         this.csvFileMapper = csvFileMapper;
-        this.jobService = jobService;
+        this.jobScheduler = jobScheduler;
         this.generateCsvConnector = generateCsvConnector;
     }
 
@@ -43,13 +44,17 @@ class CsvManagementServiceImpl implements CsvManagementService {
         CsvTemplate pattern = csvTemplatesMapper.findById(id);
         if (pattern == null)
             throw new NullPointerException();
-        jobService.createGenerateCsvJob(userId, pattern);
+       createGenerateCsvJob(userId, pattern);
     }
 
     @Override
     public List<CsvFile> findAll(String userId) {
 
         return csvFileMapper.findAllUserFiles(userId);
+    }
+
+    private void createGenerateCsvJob(String userId, CsvTemplate csvTemplate) {
+        jobScheduler.enqueue(() -> generateCsv(userId, csvTemplate.getColumns()));
     }
 
 }

@@ -16,27 +16,26 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
-   <dependencyManagement>
-       <dependencies>
-           <dependency>
-               <groupId>org.keycloak.bom</groupId>
-               <artifactId>keycloak-adapter-bom</artifactId>
-               <version>12.0.3</version>
-               <type>pom</type>
-               <scope>import</scope>
-           </dependency>
-       </dependencies>
-   </dependencyManagement>
-   <dependencies>
-    <dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>12.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-boot-starter</artifactId>
         </dependency>
-       <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter-security</artifactId>
-       </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.netflix.graphql.dgs</groupId>
@@ -56,11 +55,11 @@
             <version>1.4.200</version>
             <scope>test</scope>
         </dependency>
-       <dependency>
-           <groupId>org.jobrunr</groupId>
-           <artifactId>jobrunr-spring-boot-starter</artifactId>
-           <version>4.0.0</version>
-       </dependency>
+        <dependency>
+            <groupId>org.jobrunr</groupId>
+            <artifactId>jobrunr-spring-boot-starter</artifactId>
+            <version>4.0.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -88,17 +87,17 @@
             <artifactId>mybatis-spring-boot-starter-test</artifactId>
             <version>2.2.0</version>
         </dependency>
-       <dependency>
-           <groupId>org.apache.ibatis</groupId>
-           <artifactId>ibatis-core</artifactId>
-           <version>3.0</version>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework.security</groupId>
-           <artifactId>spring-security-test</artifactId>
-           <version>5.1.2.RELEASE</version>
-       </dependency>
-   </dependencies>
+        <dependency>
+            <groupId>org.apache.ibatis</groupId>
+            <artifactId>ibatis-core</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>5.1.2.RELEASE</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

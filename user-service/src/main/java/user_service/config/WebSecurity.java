@@ -34,10 +34,12 @@ public class WebSecurity extends KeycloakWebSecurityConfigurerAdapter {
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
         return new NullAuthenticatedSessionStrategy();
     }
+
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
+
     @Bean
     public KeycloakConfigResolver keycloakConfigResolver() {
         return new KeycloakSpringBootConfigResolver();
@@ -45,6 +47,7 @@ public class WebSecurity extends KeycloakWebSecurityConfigurerAdapter {
 
     @Autowired
     public KeycloakClientRequestFactory keycloakClientRequestFactory;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);

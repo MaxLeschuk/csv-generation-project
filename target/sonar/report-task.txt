@@ -1,0 +1,6 @@
+projectKey=org.example:csv-generation-project
+serverUrl=http://localhost:9000
+serverVersion=9.1.0.47736
+dashboardUrl=http://localhost:9000/dashboard?id=org.example%3Acsv-generation-project
+ceTaskId=AX0i64Bdn7EkF5CSLDwv
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX0i64Bdn7EkF5CSLDwv

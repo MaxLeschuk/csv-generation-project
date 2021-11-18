@@ -3,20 +3,22 @@ package csv_generation.service;
 import csv_generation.exceptions.TechnicalException;
 import csv_generation.generator.CsvGeneratorImpl;
 import csv_generation.resource.StorageService;
-import org.jobrunr.jobs.lambdas.JobLambda;
-import org.jobrunr.scheduling.JobScheduler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.xmlunit.builder.Input;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class CsvServiceImplTest {
@@ -27,20 +29,21 @@ class CsvServiceImplTest {
     @Mock
     private CsvGeneratorImpl csvGenerator;
 
-    @Mock
-    private JobScheduler jobScheduler;
+
     @InjectMocks
     private CsvServiceImpl csvService;
 
-    private final String path = "src/test/resources/test.csv";
+    private final String path = "target/test";
 
     @Test
-    void test_create()  {
+    void test_create_without_exceptions() throws IOException {
+        File file = new File(path);
+        file.createNewFile();
         String[] template = new String[]{"col1", "col2"};
         given(csvGenerator.generate(template)).willReturn(path);
+        given(storageService.save(any(InputStream.class))).willReturn("path1");
         String path1 = csvService.create(template);
-        assertEquals(path, path1);
-        verify(jobScheduler, times(1)).enqueue(any(JobLambda.class));
+        assertEquals("path1", path1);
     }
 
     @Test
