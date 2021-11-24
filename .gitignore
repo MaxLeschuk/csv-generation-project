@@ -1,7 +1,7 @@
 # Project exclude paths
 /csv-generator/target/
 /user-service/target/
-/.idea/
-/.settings/
+/.idea/*
+/.settings/*
 /data/
-/graphql-gateway-service/node_modules/
+/graphql-gateway-service/node_modules/*
