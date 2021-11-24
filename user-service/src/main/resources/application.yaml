@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: ${PROJECT_PROFILES:dev}
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/compose-postgres}
+    username: ${DATASOURCE_USERNAME:compose-postgres}
+    password: ${DATASOURCE_PASSWORD:compose-postgres}
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: ${SERVER_PORT:8082}
+  servlet:
+    context-path: ${SERVER-PATH:/management}
+
+keycloak:
+  realm: my_realm
+  realmKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA41lgDqa3zg2Q07bvzI/TpDlbunL/PAMDBDZCzfkFsoCFiUjQahk42LZ1kSXRIk+CiPsFfrypjzTc4cVwthZJjO6L3xUkzfso421dkV57dN6CThVhkta41fNgjsOch0rvckMFRJWdxD1Pnzkvm8RfZwkGU65X62FzxEwI3upaHWLWdcWQvf4gGTP0hHy7qxMXb7fSwtvCvYaVHrmS5It2OIstehjN+pWmrWD8zg4Mdr5n7Z1IZxqVpHBjHTllMYJeqJ/vflW5ynA5Vy+zzFrUQzuPIA6jEPLJATxpXLE647onKPLCJ86a3HNwqUwbvF6tPGcMbs3iWxKg0UEimy0TjwIDAQAB
+  auth-server-url: http://localhost:8180/auth
+  resource: api_bearer_only
+  bearer-only: true
+logging:
+  level:
+    com.epam.training.userservice.dao: DEBUG
+    org.keycloak: DEBUG
+jobrunr:
+  background-job-server:
+    enabled: true
+  dashboard:
+    enabled: true
+  #generator
+props:
+  generator_url: ${GENERATOR_URL:http://localhost:8081/csv-generator/generate}

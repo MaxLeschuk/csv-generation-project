@@ -1,0 +1,24 @@
+
+    #Minio Properties
+    spring.minio.url=${MINIO_URL:http://localhost:9000}
+    spring.minio.bucket=${MINIO_BUCKET:file-storage}
+    spring.minio.access-key=${MINIO_ACCESS_KEY:Q3AM3UQ867SPQQA43P2F}
+    spring.minio.secret-key=${MINIO_SECRET_KEY:tfteSlswRu7BJ86wekitnifILbZam1KYY3TG}
+
+
+spring:
+  profiles:
+    active: ${PROJECT_PROFILES:dev}
+  minio:
+    url: ${MINIO_URL:http://localhost:9000}
+    bucket: ${MINIO_BUCKET:file-storage}
+    access-key: ${MINIO_ACCESS_KEY:Q3AM3UQ867SPQQA43P2F}
+    secret-key: ${MINIO_SECRET_KEY:tfteSlswRu7BJ86wekitnifILbZam1KYY3TG}
+
+server:
+  port: ${SERVER_PORT:8081}
+  servlet:
+    context-path: ${SERVER-PATH:/csv-generator}
+props:
+  generator_path: ${GENERATE_PATH:C:/Users/Maksim_Liashchuk/Desktop/tempDir/}
+  generator_row_count: ${GENERATE_ROW_COUNT:500}
