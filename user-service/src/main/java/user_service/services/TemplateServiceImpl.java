@@ -13,6 +13,10 @@ class TemplateServiceImpl implements TemplateService {
     @Autowired
     private CsvTemplatesMapper csvTemplatesMapper;
 
+    public TemplateServiceImpl(CsvTemplatesMapper csvTemplatesMapper) {
+        this.csvTemplatesMapper = csvTemplatesMapper;
+    }
+
     public List<CsvTemplate> getAllTemplates() {
         return csvTemplatesMapper.findAll();
     }

@@ -3,7 +3,15 @@ package user_service.entities;
 public class CsvFile {
     private Integer id;
     private String path;
-    private Integer userId;
+    private String userId;
+
+    public CsvFile(String userId, String path) {
+        this.path = path;
+        this.userId = userId;
+    }
+
+    public CsvFile() {
+    }
 
     public Integer getId() {
         return id;
@@ -21,11 +29,11 @@ public class CsvFile {
         this.path = path;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 }

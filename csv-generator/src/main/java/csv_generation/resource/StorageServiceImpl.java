@@ -2,6 +2,7 @@ package csv_generation.resource;
 
 import com.jlefebure.spring.boot.minio.MinioException;
 import com.jlefebure.spring.boot.minio.MinioService;
+import csv_generation.exceptions.TechnicalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 @Component
-public class StorageServiceImpl implements StorageService {
+class StorageServiceImpl implements StorageService {
 
 
     private Logger logger = Logger.getLogger(StorageServiceImpl.class.getName());
@@ -27,8 +28,8 @@ public class StorageServiceImpl implements StorageService {
             minioService.upload(Path.of(path), inputStream, "text/csv");
             return path;
         } catch (MinioException e) {
-            logger.info(e.getMessage());
+            throw new TechnicalException(e.getLocalizedMessage());
         }
-        return null;
+
     }
 }
