@@ -29,8 +29,8 @@ class CsvGeneratorImplTest {
 
     @Test
     void test_generate() throws IOException, CsvException {
-        given(configProperties.getGeneratePath()).willReturn("target/");
-        given(configProperties.getGenerateRowCount()).willReturn(3);
+        given(configProperties.getGeneratorPath()).willReturn("target/");
+        given(configProperties.getGeneratorRowCount()).willReturn(3);
         String path = csvGenerator.generate(new String[]{"col1", "col2"});
         CSVReader csvReader = new CSVReader(new FileReader(path));
 

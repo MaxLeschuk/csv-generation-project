@@ -57,7 +57,7 @@ class CsvManagementServiceImplTest {
     @Test
     void test_generate_csv() {
         String[] testPattern = new String[]{"1", "2"};
-        given(generateCsvConnector.sendToGenerate(testPattern)).willReturn("path2");
+  //      given(generateCsvConnector.sendToGenerate(testPattern)).willReturn("path2");
         csvManagementService.generateCsv("user3", testPattern);
         assertEquals("path2", csvManagementService.findAll("user3").get(0).getPath());
     }

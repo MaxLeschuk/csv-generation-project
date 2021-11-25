@@ -21,31 +21,28 @@ public class CsvManagementServiceImpl implements CsvManagementService {
     private CsvFileRepository csvFileMapper;
 
     @Autowired
-    private JobScheduler jobScheduler;
-
-    @Autowired
-    private GenerateCsvClient generateCsvConnector;
-
+    private GenerateCsvClient generateCsv;
     public CsvManagementServiceImpl(CsvTemplatesRepository csvTemplatesMapper, CsvFileRepository csvFileMapper, JobScheduler jobScheduler, GenerateCsvClient generateCsvConnector) {
         this.csvTemplatesMapper = csvTemplatesMapper;
         this.csvFileMapper = csvFileMapper;
-        this.jobScheduler = jobScheduler;
-        this.generateCsvConnector = generateCsvConnector;
     }
 
     public void generateCsv(String userId, String[] columns) {
-        String path = generateCsvConnector.sendToGenerate(columns);
-        if (path != null)
-            csvFileMapper.save(new CsvFile(userId, path));
+        generateCsv.sendToGenerate(userId, columns);
     }
-
     @Override
     public void startFileGenerateCsvJob(String userId, Integer id) {
         CsvTemplate pattern = csvTemplatesMapper.findById(id);
         if (pattern == null)
             throw new NullPointerException();
-       createGenerateCsvJob(userId, pattern);
+        jobScheduler.enqueue(() ->generateCsv(userId, pattern.getColumns()));
+        //jobService.createGenerateCsvJob(userId, pattern);
+//        createGenerateCsvJob(userId, pattern);
     }
+
+
+    @Autowired
+    private JobScheduler jobScheduler;
 
     @Override
     public List<CsvFile> findAll(String userId) {
@@ -53,8 +50,10 @@ public class CsvManagementServiceImpl implements CsvManagementService {
         return csvFileMapper.findAllUserFiles(userId);
     }
 
-    private void createGenerateCsvJob(String userId, CsvTemplate csvTemplate) {
-        jobScheduler.enqueue(() -> generateCsv(userId,csvTemplate.getColumns()));
+   private void createGenerateCsvJob(String userId, CsvTemplate csvTemplate) {
+        jobScheduler.enqueue(() -> generateCsv(userId, csvTemplate.getColumns()));
     }
+
+
 
 }

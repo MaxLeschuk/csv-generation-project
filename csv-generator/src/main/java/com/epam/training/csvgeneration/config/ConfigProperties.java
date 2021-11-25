@@ -9,6 +9,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @ConfigurationProperties(prefix = "props")
 public class ConfigProperties {
-    private Integer generateRowCount;
-    private String generatePath;
+    private Integer generatorRowCount;
+    private String generatorPath;
+    private String s3Url;
+    private String s3Bucket;
+    private String s3AccessKey;
+    private String s3SecretKey;
 }

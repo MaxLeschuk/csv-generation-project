@@ -23,7 +23,7 @@ public class CsvGeneratorImpl implements CsvGenerator {
     public String generate(String[] columns) {
         String filePath = generateTempFile();
         try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
-            for (int i = 0; i < configProperties.getGenerateRowCount(); i++) {
+            for (int i = 0; i < configProperties.getGeneratorRowCount(); i++) {
                 writer.writeNext(generateField(i, columns));
             }
             return filePath;
@@ -41,6 +41,6 @@ public class CsvGeneratorImpl implements CsvGenerator {
     }
 
     private String generateTempFile() {
-        return configProperties.getGeneratePath() + UUID.randomUUID();
+        return configProperties.getGeneratorPath() + UUID.randomUUID();
     }
 }

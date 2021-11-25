@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-@MapperScan(basePackages = {"user_service.dao"})
 @EnableAutoConfiguration
 @EnableConfigurationProperties(ConfigProperties.class)
 @SpringBootApplication
